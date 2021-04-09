@@ -454,21 +454,21 @@ declare namespace OktaSignIn {
     code?: string;
     state?: string;
   }
-  interface RenderResultSuccessNonIDCBasic extends RenderResultSuccessBasic {
+  interface RenderResultSuccessNonOIDCBasic extends RenderResultSuccessBasic {
     type?: RenderType;
     user?: User;
   }
-  interface RenderResultSuccessNonIDCStepUp extends RenderResultSuccessNonIDCBasic {
+  interface RenderResultSuccessNonOIDCStepUp extends RenderResultSuccessNonOIDCBasic {
     // type: 'SESSION_STEP_UP'
     stepUp?: {
       url: string;
       finish: SimpleCallback;
     };
   }
-  interface RenderResultSuccessNonIDCRedirect extends RenderResultSuccessNonIDCBasic {
+  interface RenderResultSuccessNonOIDCRedirect extends RenderResultSuccessNonOIDCBasic {
     next?: SimpleCallback;
   }
-  interface RenderResultSuccessNonIDCSession extends RenderResultSuccessNonIDCBasic {
+  interface RenderResultSuccessNonOIDCSession extends RenderResultSuccessNonOIDCBasic {
     // type: 'SESSION_SSO';
     session?: {
       token: string;
@@ -476,12 +476,14 @@ declare namespace OktaSignIn {
     };
   }
   type RenderResultSuccessNonIDC =
-    RenderResultSuccessNonIDCStepUp &
-    RenderResultSuccessNonIDCRedirect &
-    RenderResultSuccessNonIDCSession;
+    RenderResultSuccessNonOIDCStepUp &
+    RenderResultSuccessNonOIDCRedirect &
+    RenderResultSuccessNonOIDCSession;
+
   type RenderResultSuccess =
     RenderResultSuccessOIDC &
     RenderResultSuccessNonIDC;
+    
   type RenderResult =
     RenderResultSuccess |
     RenderResultEmailSent |
