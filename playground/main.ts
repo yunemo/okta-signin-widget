@@ -1,19 +1,37 @@
-/* global OktaSignIn */
 /* eslint no-console: 0 */
 
-import signinWidgetOptions from '../.widgetrc.js';
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const signinWidgetOptions = require('../.widgetrc.js'); // commonJS module
 
-if (typeof OktaSignIn === 'undefined') {
+import OktaSignIn from '../types';
+
+declare global {
+  interface Window {
+    // added by widget CDN bundle
+    OktaSignIn: typeof OktaSignIn;
+
+    // added in this file
+    getWidgetInstance: () => OktaSignIn;
+    renderPlaygroundWidget: (options: OktaSignIn.WidgetConfig) => void;
+  }
+}
+
+if (typeof window.OktaSignIn === 'undefined') {
   // Make sure OktaSignIn is available
   setTimeout(() => window.location.reload(), 2 * 1000);
 }
-let signIn;
+
+function isSuccessNonOIDC(res: OktaSignIn.RenderResult): res is OktaSignIn.RenderResultSuccessNonOIDCSession {
+  return (res as OktaSignIn.RenderResultSuccessNonOIDCSession).session !== undefined;
+}
+
+let signIn: OktaSignIn;
 const renderPlaygroundWidget = (options = {}) => {
   if (signIn) {
     signIn.remove();
   }
 
-  signIn = new OktaSignIn(Object.assign({}, signinWidgetOptions, options));
+  signIn = new window.OktaSignIn(Object.assign({}, signinWidgetOptions, options));
 
   signIn.renderEl(
     { el: '#okta-login-container' },
@@ -35,7 +53,7 @@ const renderPlaygroundWidget = (options = {}) => {
 
       // 1. Widget is not configured for OIDC, and returns a sessionToken
       //    that needs to be exchanged for an okta session
-      if (res.session) {
+      if (isSuccessNonOIDC(res)) {
         console.log(res.user);
         res.session.setCookieAndRedirect(signinWidgetOptions.baseUrl + '/app/UserHome');
         return;

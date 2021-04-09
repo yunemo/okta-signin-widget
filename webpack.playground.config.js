@@ -26,27 +26,36 @@ if (!fs.existsSync(WIDGET_RC_JS)) {
 
 module.exports = {
   target: 'web',
+  mode: 'development',
   entry: {
-    'playground.js': [`${PLAYGROUND}/main.js`]
+    'playground.js': [`${PLAYGROUND}/main.ts`]
   },
   output: {
     path: `${PLAYGROUND}`,
     filename: 'playground.bundle.js',
   },
   devtool: 'source-map',
+  resolve: {
+    // Add `.ts` and `.tsx` as a resolvable extension.
+    extensions: ['.ts', '.tsx', '.js']
+  },
   module: {
     rules: [
+      // all files with a `.ts` or `.tsx` extension will be handled by `ts-loader`
+      {
+        test: /\.tsx?$/,
+        loader: 'ts-loader'
+      },
       {
         test: /\.js$/,
         exclude: /node_modules/,
         loader: 'babel-loader',
-        query: {
+        options: {
           presets: ['@babel/preset-env']
         }
       },
     ]
   },
-  watch: true,
   devServer: {
     contentBase: [
       PLAYGROUND,
