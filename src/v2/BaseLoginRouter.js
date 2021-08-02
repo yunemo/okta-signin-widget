@@ -29,7 +29,7 @@ import sessionStorageHelper from './client/sessionStorageHelper';
 import {
   startLoginFlow,
   interactionCodeFlow,
-  configIdxJsClient,
+  configureClient,
 } from './client';
 
 import transformIdxResponse from './ion/transformIdxResponse';
@@ -77,7 +77,7 @@ export default Router.extend({
       settings: this.settings,
     });
 
-    configIdxJsClient(this.appState);
+    configureClient(this.appState, this.settings);
     this.listenTo(this.appState, 'remediationSuccess', this.handleIdxResponseSuccess);
     this.listenTo(this.appState, 'remediationError', this.handleIdxResponseFailure);
     this.listenTo(this.appState, 'restartLoginFlow', this.restartLoginFlow);

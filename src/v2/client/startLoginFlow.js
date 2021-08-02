@@ -11,8 +11,6 @@
  */
 
 import Errors from 'util/Errors';
-import { interact } from './interact';
-import { introspect } from './introspect';
 import sessionStorageHelper from './sessionStorageHelper';
 
 const handleProxyIdxResponse = async (settings) => {
@@ -33,34 +31,37 @@ export async function startLoginFlow(settings) {
     sessionStorageHelper.removeStateHandle();
   }
 
+  const authClient = settings.getAuthClient();
+
   // Use interaction code flow, if enabled
   if (settings.get('useInteractionCodeFlow')) {
-    return interact(settings);
+    return authClient.idx.interact();
   }
 
   // Use stateToken from session storage if exists
   // See more details at ./docs/use-session-token-prior-to-settings.png
   const stateHandleFromSession = sessionStorageHelper.getStateHandle();
   if (stateHandleFromSession) {
-    return introspect(settings, stateHandleFromSession)
-      .then((idxResp) => {
-        // 1. abandon the settings.stateHandle given session.stateHandle is still valid
-        settings.set('stateToken', stateHandleFromSession);
-        // 2. chain the idxResp to next handler
-        return idxResp;
-      })
-      .catch(() => {
-        // 1. remove session.stateHandle
-        sessionStorageHelper.removeStateHandle();
-        // 2. start the login again in order to introspect on settings.stateHandle
-        return startLoginFlow(settings);
+    try {
+      const idxResp = await authClient.idx.introspect({
+        stateHandle: stateHandleFromSession
       });
+      // 1. abandon the settings.stateHandle given session.stateHandle is still valid
+      settings.set('stateToken', stateHandleFromSession);
+      // 2. chain the idxResp to next handler
+      return idxResp;
+    } catch {
+      // 1. remove session.stateHandle
+      sessionStorageHelper.removeStateHandle();
+      // 2. start the login again in order to introspect on settings.stateHandle
+      return startLoginFlow(settings);
+    }
   }
 
   // Use stateToken from options
   const stateHandle = settings.get('stateToken');
   if (stateHandle) {
-    return introspect(settings, stateHandle);
+    return authClient.idx.introspect(settings, { stateHandle });
   }
 
   throw new Errors.ConfigError('Set "useInteractionCodeFlow" to true in configuration to enable the ' +
