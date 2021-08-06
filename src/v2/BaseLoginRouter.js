@@ -214,7 +214,7 @@ export default Router.extend({
         const idxResp = await startLoginFlow(this.settings);
         this.appState.trigger('remediationSuccess', idxResp);
       } catch (errorResp) {
-        this.appState.trigger('remediationError', errorResp.error || errorResp);
+        this.appState.trigger('remediationError', errorResp);
       } finally {
         this.settings.unset('stateToken');
         this.settings.unset('proxyIdxResponse');

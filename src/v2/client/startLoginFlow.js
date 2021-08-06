@@ -21,6 +21,7 @@ const handleProxyIdxResponse = async (settings) => {
   });
 };
 
+// eslint-disable-next-line max-statements
 export async function startLoginFlow(settings) {
   // Return a preset response
   if (settings.get('proxyIdxResponse')) {
@@ -35,7 +36,8 @@ export async function startLoginFlow(settings) {
 
   // Use interaction code flow, if enabled
   if (settings.get('useInteractionCodeFlow')) {
-    return authClient.idx.interact();
+    const { interactionHandle } = await authClient.idx.interact();
+    return authClient.idx.introspect({ interactionHandle });
   }
 
   // Use stateToken from session storage if exists
