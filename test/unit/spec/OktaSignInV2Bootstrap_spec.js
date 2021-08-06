@@ -117,18 +117,6 @@ describe('OktaSignIn v2 bootstrap', function() {
         expect(firstReq.url).toBe('https://foo.com/idp/idx/introspect');
       });
     });
-
-    itp('throws an error if invalid version is passed to idx-js', function() {
-      setupLoginFlow({
-        stateToken: '02stateToken',
-        apiVersion: '2.0.0'
-      }, idxResponse);
-
-      return render().catch(err => {
-        expect(err.name).toBe('CONFIG_ERROR');
-        expect(err.message.toString()).toEqual('Error: Unknown api version: 2.0.0.  Use an exact semver version.');
-      });
-    });
   });
 
   describe('Interaction code flow', function() {
@@ -149,7 +137,7 @@ describe('OktaSignIn v2 bootstrap', function() {
       ];
     });
 
-    itp('calls interact API on page load using idx-js as client in custom hosted widget', function() {
+    fit('calls interact API on page load using idx-js as client in custom hosted widget', function() {
       const form = new IdentifierForm($sandbox);
       setupLoginFlow({
         clientId: 'someClientId',
