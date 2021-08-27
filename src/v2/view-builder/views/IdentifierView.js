@@ -92,6 +92,8 @@ const Body = BaseForm.extend({
 
   showMessages() {
     /**
+     * Renders callout for unknown user flow
+     * The callout type is warning unless the message 
      * Renders a warning callout for unknown user flow
      * Note: Anytime we get back `messages` object along with identify view
      * we would render it as a warning callout
@@ -99,12 +101,13 @@ const Body = BaseForm.extend({
     const messagesObj = this.options.appState.get('messages');
     if (messagesObj?.value.length
         && this.options.appState.get('currentFormName') === 'identify') {
-      const content = messagesObj.value[0].message;
+      const displayMessageObj = messagesObj.value[0];
+      const messageType = (displayMessageObj.class || 'warning').toLowerCase();
       const messageCallout = createCallout({
-        content: content,
-        type: 'warning',
+        content: displayMessageObj.message,
+        type: messageType,
       });
-      this.add(messageCallout, '.o-form-error-container');
+      this.introspectMessage = this.add(messageCallout, '.o-form-error-container').last();
     }
   },
   /**

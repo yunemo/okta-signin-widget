@@ -34,6 +34,7 @@ test('should show messages callout for unknown user', async t => {
   await identityPage.clickNextButton();
   await t.expect(identityPage.getUnknownUserCalloutContent())
     .eql('Unable to sign in');
+  await t.expect(identityPage.hasUnknownUserErrorCallout()).eql(true);
 });
 
 test('should remove messages callout for unknown user once successful', async t => {
