@@ -32,12 +32,12 @@ module.exports = {
   hooks: {
     'identify': {
       after: [
-        createDummyHook('after-identify', 0)
+        // createDummyHook('after-identify', 0)
       ]
     },
     'success-redirect': {
       before: [
-        createDummyHook('before-success-redirect',  1000)
+        // createDummyHook('before-success-redirect',  1000)
       ]
     }
   }
