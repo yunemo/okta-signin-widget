@@ -246,16 +246,7 @@ export default Model.extend({
       return;
     }
 
-    // `currentFormName` is default to first form of remediations or nothing.
-    let currentFormName = null;
-    if (!_.isEmpty(transformedResponse.remediations)) {
-      currentFormName = transformedResponse.remediations[0].name;
-    } else {
-      Logger.error('Panic!!');
-      Logger.error('\tNo remediation found.');
-      Logger.error('\tHere is the entire response');
-      Logger.error(JSON.stringify(transformedResponse, null, 2));
-    }
+    const currentFormName = this.getFormName(transformedResponse);
 
     this.clearAppStateCache();
 
@@ -268,6 +259,20 @@ export default Model.extend({
     // those derived properties must be re-computed before
     // re-rendering controller.
     this.set({ currentFormName });
-  }
+  },
+
+  getFormName(transformedResponse) {
+    // `currentFormName` is default to first form of remediations or nothing.
+    let currentFormName = null;
+    if (!_.isEmpty(transformedResponse.remediations)) {
+      currentFormName = transformedResponse.remediations[0].name;
+    } else {
+      Logger.error('Panic!!');
+      Logger.error('\tNo remediation found.');
+      Logger.error('\tHere is the entire response');
+      Logger.error(JSON.stringify(transformedResponse, null, 2));
+    }
+    return currentFormName;
+  },
 
 });

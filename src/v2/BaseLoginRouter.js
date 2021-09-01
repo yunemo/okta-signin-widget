@@ -35,6 +35,7 @@ import {
 import transformIdxResponse from './ion/transformIdxResponse';
 import { FORMS } from './ion/RemediationConstants';
 import CookieUtil from 'util/CookieUtil';
+import { doHooksAfter, doHooksBefore } from '../util/Hooks';
 
 export default Router.extend({
   Events: Backbone.Events,
@@ -84,7 +85,7 @@ export default Router.extend({
     this.listenTo(this.appState, 'restartLoginFlow', this.restartLoginFlow);
   },
 
-  handleIdxResponseSuccess(idxResponse) {
+  async handleIdxResponseSuccess(idxResponse) {
     // Only update the cookie when the user has successfully authenticated themselves 
     // to avoid incorrect/uneccessary updates.
     if (this.hasAuthenticationSucceeded(idxResponse) 
@@ -125,7 +126,11 @@ export default Router.extend({
     // transform response
     const ionResponse = transformIdxResponse(this.settings, idxResponse, lastResponse);
 
+    const formName = this.appState.getFormName(ionResponse);
+    const hook = this.settings.getHook(formName);
+    await doHooksBefore(hook);
     this.appState.setIonResponse(ionResponse);
+    await doHooksAfter(hook);
   },
 
   handleIdxResponseFailure(error = {}) {

@@ -52,6 +52,7 @@ export default Model.extend({
     globalSuccessFn: 'function',
     globalErrorFn: 'function',
     processCreds: 'function',
+    hooks: 'object',
 
     // IMAGES
     logo: 'string',
@@ -529,4 +530,21 @@ export default Model.extend({
   isDsTheme: function() {
     return false;
   },
+
+  mergeHook: function(formName, hookToMerge) {
+    const hooks = this.get('hooks') || {};
+    const existingHook = hooks[formName] = hooks[formName] || { before: [], after: [] };
+    if (hookToMerge.before) {
+      existingHook.before = existingHook.before.concat(hookToMerge.before);
+    }
+    if (hookToMerge.after) {
+      existingHook.after = existingHook.before.concat(hookToMerge.after);
+    }
+    this.set('hooks', hooks);
+  },
+
+  getHook: function(formName) {
+    const hooks = this.get('hooks') || {};
+    return hooks[formName]; // may be undefined
+  }
 });

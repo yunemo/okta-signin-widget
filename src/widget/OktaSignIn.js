@@ -84,6 +84,23 @@ var OktaSignIn = (function() {
       return this.renderEl(renderOptions);
     }
 
+    // Hook convenience functions
+    function before(formName, callbackFn) {
+      this.settings.mergeHook(formName, {
+        before: [
+          callbackFn
+        ]
+      });
+    }
+
+    function after(formName, callbackFn) {
+      this.settings.mergeHook(formName, {
+        after: [
+          callbackFn
+        ]
+      });
+    }
+
     // Properties exposed on OktaSignIn object.
     return {
       renderEl: render,
@@ -94,6 +111,8 @@ var OktaSignIn = (function() {
       hide,
       show,
       remove,
+      before,
+      after,
     };
   }
 
