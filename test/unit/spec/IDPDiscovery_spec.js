@@ -645,7 +645,7 @@ Expect.describe('IDPDiscovery', function() {
         test.form.usernameField().focusin();
         expect(test.form.usernameField()[0].parentElement).toHaveClass('focused-input');
         test.form.usernameField().focusout();
-        expect(test.form.usernameField()[0].parentElement).not.toHaveClass('focused-input');
+        expect(test.form.usernameField()[0].parentElement.attr('class')).not.toContain('focused-input');
       });
     });
   });
