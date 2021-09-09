@@ -2575,7 +2575,7 @@ Expect.describe('PrimaryAuth', function() {
     itp('does not show the divider or buttons if no idps are passed in', function() {
       return setup().then(function(test) {
         expect(test.form.hasSocialAuthDivider()).toBe(false);
-        expect(test.form.socialAuthButtons()).toHaveLength(0);
+        expect(test.form.socialAuthButtons().length).toEqual(0);
       });
     });
     itp('shows a divider and a button for each idp that is passed in', function() {
@@ -2594,9 +2594,9 @@ Expect.describe('PrimaryAuth', function() {
 
       return setup(settings).then(function(test) {
         expect(test.form.hasSocialAuthDivider()).toBe(true);
-        expect(test.form.socialAuthButtons()).toHaveLength(2);
-        expect(test.form.facebookButton()).toHaveLength(1);
-        expect(test.form.googleButton()).toHaveLength(1);
+        expect(test.form.socialAuthButtons().length).toEqual(2);
+        expect(test.form.facebookButton().length).toEqual(1);
+        expect(test.form.googleButton().length).toEqual(1);
       });
     });
     itp('shows idps in the order specified', function() {
