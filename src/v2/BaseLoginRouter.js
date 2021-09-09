@@ -204,9 +204,9 @@ export default Router.extend({
     // Since we have a wrapper view, render our wrapper and use its content
     // element as our new el.
     // Note: Render it here because we know dom is ready at this point
-    if (!this.header.rendered()) {
-      this.el = this.header.render().getContentEl();
-    }
+    // if (!this.header.rendered()) {
+    //   this.el = this.header.render().getContentEl();
+    // }
 
     // If we need to load a language (or apply custom i18n overrides), do
     // this now and re-run render after it's finished.

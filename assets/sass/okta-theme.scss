@@ -111,8 +111,8 @@
   &.main-container {
     /* -- Main Background and Border Colors -- */
     background-color: $primary-bg-color;
-    border-color: #ddd #ddd #d8d8d8;
-    box-shadow: 0 2px 0 rgba(175, 175, 175, 0.12);
+    border-color: transparent;
+    box-shadow: none;
 
     @include mobile {
       border-width: 0;
@@ -797,17 +797,17 @@
 
   .okta-form-input-field {
     /* -- Input Fields -- */
-    background-color: $input-bg-color;
-    border-color: $input-border-color;
+    background-color: transparent;
+    border: none;
 
-    &:hover {
-      /* -- Input Fields -- */
-      border-color: $input-border-color-hover;
-    }
-
-    &.focused-input {
-      border-color: $input-border-color-focus;
-    }
+    //&:hover {
+    //  /* -- Input Fields -- */
+    //  border-color: $input-border-color-hover;
+    //}
+    //
+    //&.focused-input {
+    //  border-color: $input-border-color-focus;
+    //}
 
     input {
       /* -- Input Fields -- */

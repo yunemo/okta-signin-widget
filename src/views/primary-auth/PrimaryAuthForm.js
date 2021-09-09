@@ -107,9 +107,10 @@ export default Form.extend({
 
   getUsernameField: function() {
     const userNameFieldObject = {
-      className: 'margin-btm-5',
-      label: loc('primaryauth.username.placeholder', 'login'),
+      className: 'margin-btm-30',
+      // label: loc('primaryauth.username.placeholder', 'login'),
       'label-top': true,
+      placeholder: loc('primaryauth.username.placeholder', 'login'),
       explain: () => {
         if (!this.isCustomized('primaryauth.username.tooltip')) {
           return false;
@@ -136,7 +137,8 @@ export default Form.extend({
   getPasswordField: function() {
     const passwordFieldObject = {
       className: 'margin-btm-30',
-      label: loc('primaryauth.password.placeholder', 'login'),
+      // label: loc('primaryauth.password.placeholder', 'login'),
+      placeholder: loc('primaryauth.password.placeholder', 'login'),
       'label-top': true,
       explain: () => {
         if (!this.isCustomized('primaryauth.password.tooltip')) {

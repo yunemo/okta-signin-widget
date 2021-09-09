@@ -58,13 +58,14 @@
   &:active,
   &:focus {
     /* -- Buttons' Colors -- */
-    $hover-bg-color: lighten($bg-color, 3%);
-    background-color: $hover-bg-color;
-    background: -o-linear-gradient(top, $hover-bg-color 0%, darken($hover-bg-color, $gradient-factor) 100%); /* Opera 11.10+ */
-    background: -ms-linear-gradient(top, $hover-bg-color 0%, darken($hover-bg-color, $gradient-factor) 100%); /* IE10+ */
-    background-image: linear-gradient($hover-bg-color, darken($hover-bg-color, $gradient-factor));
-    border-color: darken($bg-color, $border-factor * 1.3);
-    border-bottom-color: darken($bg-color, $border-bottom-factor * 1.2);
+    //$hover-bg-color: lighten($bg-color, 3%);
+    //background-color: $hover-bg-color;
+    //background: -o-linear-gradient(top, $hover-bg-color 0%, darken($hover-bg-color, $gradient-factor) 100%); /* Opera 11.10+ */
+    //background: -ms-linear-gradient(top, $hover-bg-color 0%, darken($hover-bg-color, $gradient-factor) 100%); /* IE10+ */
+    //background-image: linear-gradient($hover-bg-color, darken($hover-bg-color, $gradient-factor));
+    //border-color: darken($bg-color, $border-factor * 1.3);
+    //border-bottom-color: darken($bg-color, $border-bottom-factor * 1.2);
+    box-shadow: -5px -5px 10px #ffffff, 6px 6px 12px rgb(86 132 115 / 50%), inset 0 0 0 1px rgb(255 255 255 / 20%);
     text-decoration: none;
     cursor: pointer;
   }

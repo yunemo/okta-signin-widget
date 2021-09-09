@@ -53,6 +53,7 @@
   line-height: 16px;
   color: $text-color-dark;
   box-sizing: border-box;
+  display: none;
 
   a.icon-16 {
     display: inline;
@@ -83,7 +84,7 @@
 /* Input and label */
 .o-form {
   .input-fix {
-    height: 30px;
+    height: 40px;
 
     input[type="text"],
     input[type="textbox"], /* Some custom type created by ghost dev */
@@ -98,6 +99,15 @@
       border: none;
       background: transparent;
       box-sizing: border-box;
+      height: 40px;
+      /* border: 1px solid #bbb; */
+      display: inline-block;
+      float: left;
+      border-radius: 30px;
+      outline: none;
+      box-shadow: inset 2px 3px 6px #d0cab9;
+      border: 0;
+      background-color: #fff;
     }
 
     input.password-with-toggle {
