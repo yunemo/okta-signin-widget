@@ -643,7 +643,7 @@ Expect.describe('IDPDiscovery', function() {
     itp('toggles "focused-input" css class on focus in and focus out', function() {
       return setup().then(function(test) {
         test.form.usernameField().focusin();
-        expect(test.form.usernameField()[0].parentElement).toHaveClass('focused-input');
+        expect(test.form.usernameField()[0].parentElement.attr('class')).toEqual('focused-input');
         test.form.usernameField().focusout();
         expect(test.form.usernameField()[0].parentElement.attr('class')).not.toContain('focused-input');
       });

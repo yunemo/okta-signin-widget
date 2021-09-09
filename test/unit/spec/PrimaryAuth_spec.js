@@ -764,7 +764,7 @@ Expect.describe('PrimaryAuth', function() {
     itp('toggles "focused-input" css class on focus in and focus out', function() {
       return setup().then(function(test) {
         test.form.usernameField().focusin();
-        expect(test.form.usernameField()[0].parentElement).toHaveClass('focused-input');
+        expect(test.form.usernameField()[0].parentElement.attr('class')).toEqual('focused-input');
         test.form.usernameField().focusout();
         expect(test.form.usernameField()[0].parentElement.attr('class')).not.toContain('focused-input');
       });
@@ -849,7 +849,7 @@ Expect.describe('PrimaryAuth', function() {
       return setup().then(function(test) {
         test.form.usernameField().focusin();
         Util.callAllTimeouts();
-        expect(test.form.usernameField()[0].parentElement).toHaveClass('focused-input');
+        expect(test.form.usernameField()[0].parentElement.attr('class')).toEqual('focused-input');
         test.form.usernameField().focusout();
         Util.callAllTimeouts(); // focus is wrapped in debounce() which uses setTimeout()
         expect(test.form.usernameField()[0].parentElement.attr('class')).not.toContain('focused-input');
@@ -878,7 +878,7 @@ Expect.describe('PrimaryAuth', function() {
         spyOn(test.router.controller.model, 'validate');
         test.form.passwordField().focusin();
         Util.callAllTimeouts();
-        expect(test.form.passwordField()[0].parentElement).toHaveClass('focused-input');
+        expect(test.form.passwordField()[0].parentElement.attr('class')).toEqual('focused-input');
         test.form.passwordField().focusout();
         expect(test.form.passwordField()[0].parentElement.attr('class')).not.toContain('focused-input');
         expect(test.router.controller.model.validate).not.toHaveBeenCalled();
@@ -2628,11 +2628,11 @@ Expect.describe('PrimaryAuth', function() {
       return setup(settings).then(function(test) {
         const buttons = test.form.socialAuthButtons();
 
-        expect(buttons.eq(0)).toHaveClass('social-auth-linkedin-button');
-        expect(buttons.eq(1)).toHaveClass('social-auth-facebook-button');
-        expect(buttons.eq(2)).toHaveClass('social-auth-google-button');
-        expect(buttons.eq(3)).toHaveClass('social-auth-apple-button');
-        expect(buttons.eq(4)).toHaveClass('social-auth-microsoft-button');
+        expect(buttons.eq(0).attr('class')).toEqual('social-auth-linkedin-button');
+        expect(buttons.eq(1).attr('class')).toEqual('social-auth-facebook-button');
+        expect(buttons.eq(2).attr('class')).toEqual('social-auth-google-button');
+        expect(buttons.eq(3).attr('class')).toEqual('social-auth-apple-button');
+        expect(buttons.eq(4).attr('class')).toEqual('social-auth-microsoft-button');
       });
     });
     itp('optionally adds a class for idp buttons', function() {
@@ -2658,20 +2658,20 @@ Expect.describe('PrimaryAuth', function() {
       return setup(settings).then(function(test) {
         const buttons = test.form.socialAuthButtons();
 
-        expect(buttons.eq(0)).toHaveClass('social-auth-google-button');
+        expect(buttons.eq(0).attr('class')).toEqual('social-auth-google-button');
         expect(buttons.eq(0).attr('class')).not.toContain('social-auth-facebook-button');
-        expect(buttons.eq(0)).toHaveClass('example-class');
+        expect(buttons.eq(0).attr('class')).toEqual('example-class');
         expect(buttons.eq(0).attr('class')).not.toContain('other-class');
 
         expect(buttons.eq(1).attr('class')).not.toContain('social-auth-google-button');
-        expect(buttons.eq(1)).toHaveClass('social-auth-facebook-button');
+        expect(buttons.eq(1).attr('class')).toEqual('social-auth-facebook-button');
         expect(buttons.eq(1).attr('class')).not.toContain('example-class');
         expect(buttons.eq(1).attr('class')).not.toContain('other-class');
 
         expect(buttons.eq(2).attr('class')).not.toContain('social-auth-google-button');
         expect(buttons.eq(2).attr('class')).not.toContain('social-auth-facebook-button');
         expect(buttons.eq(2).attr('class')).not.toContain('example-class');
-        expect(buttons.eq(2)).toHaveClass('other-class');
+        expect(buttons.eq(2).attr('class')).toEqual('other-class');
       });
     });
     itp('displays generic idp buttons for unknown types', function() {
@@ -2694,7 +2694,7 @@ Expect.describe('PrimaryAuth', function() {
         expect(buttons.eq(0).attr('class')).not.toContain('social-auth-google-button');
         expect(buttons.eq(0).attr('class')).not.toContain('social-auth-apple-button');
         expect(buttons.eq(0).attr('class')).not.toContain('social-auth-microsoft-button');
-        expect(buttons.eq(0)).toHaveClass('social-auth-general-idp-button');
+        expect(buttons.eq(0).attr('class')).toEqual('social-auth-general-idp-button');
       });
     });
     itp('type is optional for generic idp buttons', function() {
@@ -2715,7 +2715,7 @@ Expect.describe('PrimaryAuth', function() {
         expect(buttons.eq(0).attr('class')).not.toContain('social-auth-google-button');
         expect(buttons.eq(0).attr('class')).not.toContain('social-auth-apple-button');
         expect(buttons.eq(0).attr('class')).not.toContain('social-auth-microsoft-button');
-        expect(buttons.eq(0)).toHaveClass('social-auth-general-idp-button');
+        expect(buttons.eq(0).attr('class')).toEqual('social-auth-general-idp-button');
       });
     });
     itp('sets the text for generic idp buttons', function() {
